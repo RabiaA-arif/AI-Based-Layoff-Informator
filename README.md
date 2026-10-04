@@ -249,4 +249,4 @@ Built by **RabiaA-arif** for Hacktoberfest, with the goal of helping anxious tec
 
 
 
-[Watch the AI-Based Layoff Informator demo](PASTE_YOUR_VIDEO_URL_HERE)
+[Watch the AI-Based Layoff Informator demo](https://youtu.be/WvyyZVjem9E)
