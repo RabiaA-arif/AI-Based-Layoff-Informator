@@ -246,3 +246,7 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 Built by **RabiaA-arif** for Hacktoberfest, with the goal of helping anxious technology workers stay informed in a more focused and human-friendly way.
 
 [View the repository on GitHub](https://github.com/RabiaA-arif/AI-Based-Layoff-Informator)
+
+
+
+[Watch the AI-Based Layoff Informator demo](PASTE_YOUR_VIDEO_URL_HERE)
