@@ -1,0 +1,19 @@
+{% autoescape off %}TECH LAYOFF BRIEFING - {% now "F j, Y" %}
+
+OVERVIEW
+--------
+{{ summary }}
+
+{% for item in layoffs %}
+{{ item.company }} - employees affected: {{ item.employees_affected }}
+  Reason: {{ item.reason }}
+{% if item.link %}  Source: {{ item.link }}
+{% endif %}
+{% empty %}
+No new tech layoffs were found in the last few days.
+
+{% endfor %}
+--
+You received this because you requested it on Layoff Tracker.
+This summary is AI-generated, so verify details at the source.
+{% endautoescape %}

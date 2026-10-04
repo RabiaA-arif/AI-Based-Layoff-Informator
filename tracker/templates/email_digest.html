@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tech Layoff Briefing</title>
+</head>
+<body style="margin:0;padding:0;background:#f4f6f8;">
+<div style="background:#f4f6f8;padding:24px;font-family:Arial,Helvetica,sans-serif;">
+  <table align="center" width="600" style="background:#ffffff;border-radius:8px;padding:0;border-collapse:collapse;max-width:100%;">
+    <tr><td style="background:#1f3a5f;color:#ffffff;padding:20px 28px;border-radius:8px 8px 0 0;">
+      <h2 style="margin:0;font-size:20px;">Tech Layoff Briefing</h2>
+      <p style="margin:4px 0 0;font-size:13px;color:#c9d6e8;">Your latest update on layoffs in tech &middot; {% now "F j, Y" %}</p>
+    </td></tr>
+    <tr><td style="padding:24px 28px;color:#333333;font-size:15px;line-height:1.6;">
+      <h3 style="margin-top:0;color:#1f3a5f;">Overview</h3>
+      <p style="margin:0 0 4px;">{{ summary }}</p>
+      {% for item in layoffs %}
+      <div style="border-left:4px solid #1f3a5f;background:#f8fafc;padding:12px 16px;margin:14px 0;">
+        <strong style="font-size:16px;">{{ item.company }}</strong><br>
+        <span style="color:#555555;">Employees affected: {{ item.employees_affected }}</span><br>
+        <span style="color:#555555;">Reason: {{ item.reason }}</span>
+        {% if item.link %}<br>
+        <a href="{{ item.link }}" style="color:#1f6feb;">Read the source</a>
+        {% endif %}
+      </div>
+      {% empty %}
+      <p style="margin:8px 0 0;color:#555555;">No new tech layoffs were found in the last few days.</p>
+      {% endfor %}
+    </td></tr>
+    <tr><td style="padding:16px 28px;font-size:12px;color:#888888;border-top:1px solid #eeeeee;">
+      You received this because you requested it on Layoff Tracker. This summary is AI-generated, so verify details at the source.
+    </td></tr>
+  </table>
+</div>
+</body>
+</html>
