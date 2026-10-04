@@ -238,10 +238,11 @@ Please keep changes focused, avoid committing secrets or local databases contain
 
 ## License
 
-No license file is currently included in this repository. If you intend to accept outside contributions or allow reuse, add an open-source license such as MIT before publishing the project as a reusable package.
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
 
 ## Author
 
-Built by **Rabia A. Arif** for Hacktoberfest, with the goal of helping anxious technology workers stay informed in a more focused and human-friendly way.
+Built by **RabiaA-arif** for Hacktoberfest, with the goal of helping anxious technology workers stay informed in a more focused and human-friendly way.
 
 [View the repository on GitHub](https://github.com/RabiaA-arif/AI-Based-Layoff-Informator)
