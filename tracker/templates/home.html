@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Layoff Tracker</title>
+  <style>
+    body { font-family: Arial; max-width: 480px; margin: 80px auto; text-align: center; }
+    input, button { padding: 10px; font-size: 16px; }
+    input { width: 70%; }
+  </style>
+</head>
+<body>
+  <h1>AI Layoff Tracker</h1>
+  <p>Enter your email to get the latest company layoff summary.</p>
+  <form method="post">
+    {% csrf_token %}
+    <input type="email" name="email" placeholder="you@example.com" required>
+    <button type="submit">Send</button>
+  </form>
+  <p>{{ message }}</p>
+</body>
+</html>
