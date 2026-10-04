@@ -1,13 +1,43 @@
 import os
+import json
+from urllib.parse import quote_plus
 
 import feedparser
 import requests
 
+MODEL = "openrouter/free"  # or the free model ID that worked for you
 
-def fetch_layoff_news(limit=8):
-    url = "https://news.google.com/rss/search?q=company+layoffs+when:3d"
+
+def fetch_layoff_news(limit=10):
+    query = '(tech OR software OR "AI company" OR startup) layoffs when:3d'
+    url = f"https://news.google.com/rss/search?q={quote_plus(query)}"
     feed = feedparser.parse(url)
-    return [{"title": entry.title, "link": entry.link} for entry in feed.entries[:limit]]
+    return [{"title": e.title, "link": e.link} for e in feed.entries[:limit]]
+
+
+PROMPT = """You are a tech-industry analyst writing a layoff briefing.
+
+From the headlines below, keep ONLY layoffs at technology companies
+(software, internet, AI, semiconductors, hardware, IT services, tech startups).
+Ignore non-tech companies (retail, banks, airlines, media, etc.) and non-layoff news.
+
+Reply with ONLY valid JSON, no markdown, in this exact shape:
+{{
+  "summary": "3 concise sentences on the overall trend",
+  "layoffs": [
+    {{
+      "company": "name",
+      "employees_affected": "number or 'Not disclosed'",
+      "reason": "one short sentence or 'Not disclosed'",
+      "link": "url from the headline"
+    }}
+  ]
+}}
+
+Rules: never invent numbers or reasons. If nothing qualifies, return an empty "layoffs" list.
+
+Headlines:
+{headlines}"""
 
 
 def summarize(articles):
@@ -15,34 +45,27 @@ def summarize(articles):
     if not api_key:
         raise RuntimeError("OPENROUTER_API_KEY is not set")
 
-    headlines = "\n".join(
-        f"- {article['title']} ({article['link']})" for article in articles
-    )
-    prompt = f"""From these news headlines, extract company layoff information.
-            For each real layoff give: company, number of employees affected (if known),
-            reason (if known), and link. Then write a 3-sentence overall summary.
-            Ignore irrelevant headlines.
-
-{headlines}"""
+    headlines = "\n".join(f"- {a['title']} ({a['link']})" for a in articles)
     response = requests.post(
         "https://openrouter.ai/api/v1/chat/completions",
         headers={"Authorization": f"Bearer {api_key}"},
         json={
-            # "model": "meta-llama/llama-3.3-70b-instruct:free",
-            "model": "openrouter/free",
-            "messages": [{"role": "user", "content": prompt}],
+            "model": MODEL,
+            "messages": [{"role": "user", "content": PROMPT.format(headlines=headlines)}],
+            "max_tokens": 1500,
         },
         timeout=60,
     )
-    response.raise_for_status()
-    data = response.json()
-    # print(data)
-    choices = data.get("choices")
-    if not choices or not choices[0].get("message", {}).get("content"):
-        error = data.get("error", {})
-        detail = error.get("message") if isinstance(error, dict) else None
-        if detail:
-            raise RuntimeError(f"OpenRouter returned no summary: {detail}")
-        raise RuntimeError("OpenRouter response did not contain a summary")
+    if not response.ok:
+        raise RuntimeError(f"OpenRouter {response.status_code}: {response.text}")
 
-    return choices[0]["message"]["content"]
+    content = response.json()["choices"][0]["message"]["content"]
+    if not content:
+        raise RuntimeError("Model returned an empty response")
+
+    # strip ```json fences if the model adds them
+    content = content.strip().removeprefix("```json").removeprefix("```").removesuffix("```").strip()
+    try:
+        return json.loads(content)
+    except json.JSONDecodeError:
+        return {"summary": content, "layoffs": []}  # fallback so it never crashes
