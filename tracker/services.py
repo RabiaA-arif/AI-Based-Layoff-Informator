@@ -28,13 +28,15 @@ def summarize(articles):
         "https://openrouter.ai/api/v1/chat/completions",
         headers={"Authorization": f"Bearer {api_key}"},
         json={
-            "model": "meta-llama/llama-3.3-70b-instruct:free",
+            # "model": "meta-llama/llama-3.3-70b-instruct:free",
+            "model": "openrouter/free",
             "messages": [{"role": "user", "content": prompt}],
         },
         timeout=60,
     )
     response.raise_for_status()
     data = response.json()
+    # print(data)
     choices = data.get("choices")
     if not choices or not choices[0].get("message", {}).get("content"):
         error = data.get("error", {})
