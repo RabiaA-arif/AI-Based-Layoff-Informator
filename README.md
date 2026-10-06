@@ -6,7 +6,7 @@
 
 ## The story behind the project
 
-Layoffs are stressful enough without having to repeatedly search through dozens of news sites to find out what is happening in the technology industry. I built **AI-Based Layoff Informator** after seeing how anxious my roommate—who works in software development—became whenever layoff news started trending.
+Layoffs are stressful enough without having to repeatedly search through dozens of news sites to find out what is happening in the technology industry. I built **AI-Based Layoff Informator** after seeing how anxious my roommate who works in software development became whenever layoff news started trending.
 
 The goal is simple: help people stay informed **without doom-scrolling**. A user enters an email address, and the application collects recent technology layoff headlines, filters out unrelated stories, creates a concise AI-assisted briefing, and sends it in both HTML and plain-text email formats.
 
@@ -244,7 +244,5 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 Built by **RabiaA-arif** for Hacktoberfest, with the goal of helping anxious technology workers stay informed in a more focused and human-friendly way.
 
 [View the repository on GitHub](https://github.com/RabiaA-arif/AI-Based-Layoff-Informator)
-
-
 
 [Watch the AI-Based Layoff Informator demo](https://youtu.be/WvyyZVjem9E)
