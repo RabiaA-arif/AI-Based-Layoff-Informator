@@ -1,10 +1,8 @@
 # AI-Based Layoff Informator
 
-> **A calm, source-linked tech layoff briefing delivered straight to your inbox.**
-
 [![Django](https://img.shields.io/badge/Django-6.1%2B-092E20?logo=django&logoColor=white)](https://www.djangoproject.com/)
 [![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white)](https://www.python.org/)
-[![Hacktoberfest](https://img.shields.io/badge/Hacktoberfest-2026-FF6F61)](https://hacktoberfest.com/)
+
 
 ## The story behind the project
 
